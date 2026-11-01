@@ -21,7 +21,7 @@
             <div id="loginStep" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 mb-1">अपना मोबाइल नंबर डालें</label>
-                    <input type="tel" id="loginPhone" placeholder="10 अंकों का मोबाइल नंबर" pattern="[0-9]{10}" value="9386552659" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none">
+                    <input type="tel" id="loginPhone" placeholder="10 अंकों का मोबाइल नंबर" pattern="[0-9]{10}" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white outline-none">
                 </div>
                 <button onclick="handlePhoneSubmit()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700">
                     आगे बढ़ें (Login)
@@ -131,32 +131,12 @@
 
         function getBookings() { return JSON.parse(localStorage.getItem('mk_bookings') || '[]'); }
         function saveBookings(d) { localStorage.setItem('mk_bookings', JSON.stringify(d)); }
-        
-        function getTechs() { 
-            const defaultTechs = [
-                {
-                    spId: 'SP-1090',
-                    name: 'मानसू कुमार',
-                    phone: '9386552659',
-                    expert: 'AC & All Home Appliance Specialist',
-                    address: 'दानापुर, पटना',
-                    isOnline: true
-                }
-            ];
-            const stored = JSON.parse(localStorage.getItem('mk_techs') || '[]');
-            defaultTechs.forEach(dt => {
-                if(!stored.some(t => t.spId === dt.spId || t.phone === dt.phone)) {
-                    stored.push(dt);
-                }
-            });
-            localStorage.setItem('mk_techs', JSON.stringify(stored));
-            return stored;
-        }
+        function getTechs() { return JSON.parse(localStorage.getItem('mk_techs') || '[]'); }
         function saveTechs(d) { localStorage.setItem('mk_techs', JSON.stringify(d)); }
         function getRateCard() { return JSON.parse(localStorage.getItem('mk_ratecard') || '[]'); }
 
         window.onload = function() {
-            const savedPhone = localStorage.getItem('mk_active_partner_phone') || '9386552659';
+            const savedPhone = localStorage.getItem('mk_active_partner_phone');
             if(savedPhone) {
                 const techs = getTechs();
                 const existing = techs.find(t => t.phone === savedPhone);
